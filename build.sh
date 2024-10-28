@@ -9,8 +9,8 @@ mkdir output
 git clone https://github.com/curl/curl
 cd curl
 autoreconf -fi
-./configure LDFLAGS="-static" --disable-nss --enable-static --without-shared --with-openssl --with-zlib=/usr/lib --without-libpsl
-make -j8 curl_LDFLAGS="-all-static"
+./configure LDFLAGS="-static -Wl,--gc-sections -ffunction-sections -fdata-sections" --disable-nss --enable-static --without-shared --with-openssl --with-zlib=/usr/lib --without-libpsl
+make -j8 curl_LDFLAGS="-all-static -Wl,--gc-sections -ffunction-sections -fdata-sections"
 strip src/curl
 upx src/curl
 cp src/curl ../output/
